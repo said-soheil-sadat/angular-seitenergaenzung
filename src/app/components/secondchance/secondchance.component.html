@@ -1,0 +1,24 @@
+<table border="2" style="text-align: center">
+  <tr>
+    <ng-container *ngFor="let x of pageList[0]">
+      <td>Val</td> <td>2C</td>
+    </ng-container>
+  </tr>
+  <tr *ngFor="let page of pageList">
+    <ng-container *ngFor="let p of page">
+      <td style="background-color: {{p.bg_color}}">{{p.page_value}}</td><td style="background-color: {{p.bg_color}}">{{p.secondChance}}</td>
+    </ng-container>
+  </tr>
+  <tr>
+    <td *ngFor="let t of tArr" colspan="2">ms: {{t}}</td>
+  </tr>
+</table>
+
+<table border="1">
+  <tr>
+    <td>Hits</td><td>{{counter.hits}}</td>
+  </tr>
+  <tr>
+    <td>Misses</td><td>{{counter.miss}}</td>
+  </tr>
+</table>
