@@ -16,10 +16,8 @@ export class SecondchanceComponent implements OnInit, OnChanges, OnDestroy {
   private subscriptions: Subscription[] = [];
   pageList!: SecChance[][];
   currentPages!: SecChance[];
-  counter = COUNTER;
+  counter = {...COUNTER};
   tArr: number[] = [];
-
-
 
   createNewPageList(): void {
     this.tArr = [];
@@ -27,10 +25,16 @@ export class SecondchanceComponent implements OnInit, OnChanges, OnDestroy {
     this.pageList = [];
     this.currentPages = [];
     for (let i = 0; i < this.pageSize; i++) {
-      this.pageList.push([{page_value: 0, secondChance: false, bg_color: COLORS.yellow_code}]);
-      this.currentPages.push({page_value: 0, secondChance: false, bg_color: COLORS.yellow_code});
+      this.pageList.push([{
+        page_value: 0, secondChance: false,
+        bg_color: COLORS.yellow_code
+      }]);
+      this.currentPages.push({
+        page_value: 0, secondChance: false,
+        bg_color: COLORS.yellow_code
+      });
     }
-    this.counter = {hits: 0, miss: 0};
+    this.counter = {...COUNTER};
     this.performanceTimer.setEndTime();
     this.tArr.push(this.performanceTimer.getPerformanceTime());
   }
@@ -46,10 +50,8 @@ export class SecondchanceComponent implements OnInit, OnChanges, OnDestroy {
         };
         isPresent = true;
         this.counter.hits += 1;
+        this.changeColors(newNumber);
       }
-    }
-    if (isPresent) {
-      this.changeColors(newNumber);
     }
     return isPresent;
   }
@@ -67,7 +69,7 @@ export class SecondchanceComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   checkForEmptyIndex(newNumber: number): number {
-    let startIndex = 0;
+    let startIndex = 255;
     let gotEmpty = false;
     for (let i = 0; i < this.currentPages.length; i++) {
       if (this.currentPages[i].page_value === 0 && !gotEmpty) {
@@ -80,7 +82,7 @@ export class SecondchanceComponent implements OnInit, OnChanges, OnDestroy {
 
   replaceFromLastEntry(newInput: number): void {
     let startIndex = this.checkForEmptyIndex(newInput);
-    if (startIndex === 0) {
+    if (startIndex === 255) {
       for (let i = 0; i < this.currentPages.length; i++) {
         if (this.currentPages[i].bg_color === COLORS.green_code) {
           startIndex = i + 1;
@@ -117,7 +119,6 @@ export class SecondchanceComponent implements OnInit, OnChanges, OnDestroy {
       this.counter.miss += 1;
       this.replaceFromLastEntry(newInput);
     }
-
     for (let i = 0; i < this.currentPages.length; i++) {
       this.pageList[i] = [...this.pageList[i], this.currentPages[i]];
     }
@@ -133,11 +134,9 @@ export class SecondchanceComponent implements OnInit, OnChanges, OnDestroy {
       this.insertNewNumber(newInput);
     }));
   }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.pageSize.currentValue !== this.pageSize || changes.pageSize.currentValue !== undefined) {
       this.createNewPageList();

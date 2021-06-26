@@ -1,19 +1,22 @@
 <table border="2" style="text-align: center">
   <tr>
+    <td>Page</td>
     <ng-container *ngFor="let x of pageList[0]">
       <td>Val</td> <td>Hits</td>
     </ng-container>
   </tr>
-  <tr *ngFor="let page of pageList">
+  <tr *ngFor="let page of pageList; let i = index">
+    <td>{{i+1}}</td>
     <ng-container *ngFor="let p of page">
       <td style="background-color: {{p.bg_color}}">{{p.page_value}}</td><td style="background-color: {{p.bg_color}}">{{p.page_hits}}</td>
     </ng-container>
   </tr>
   <tr>
-    <td *ngFor="let t of tArr" colspan="2">ms: {{t}}</td>
+    <td>ms</td>
+    <td *ngFor="let t of tArr" colspan="2">{{t}}</td>
   </tr>
 </table>
-
+<br/>
 <table border="1">
   <tr>
     <td>Hits</td><td>{{counter.hits}}</td>

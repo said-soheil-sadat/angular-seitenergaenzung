@@ -1,17 +1,13 @@
-<h1>This is the Main Component</h1>
+<h1>Seitenergänzungsstrategie mit Angular2</h1>
 
 Page Method: <select id="methodselect" [(ngModel)]="pageMethod">
-  <ng-container *ngFor="let method of methods">
-    <option id="{{method.id}}" value="{{method.id}}">{{method.display}}</option>
-  </ng-container>
+  <option *ngFor="let method of methods" id="{{method.id}}" value="{{method.id}}">{{method.display}}</option>
 </select>
-<br/>
+<br/><br/>
 Page Size: <select id="pagesizeselect" [(ngModel)]="pageSizeValue">
-  <ng-container *ngFor="let page of pagesize">
-    <option id="{{'page_'+page}}" value="{{page}}">{{page}}</option>
-  </ng-container>
+  <option *ngFor="let page of pagesize" id="{{'page_'+page}}" value="{{page}}">{{page}}</option>
 </select>
-
+<br/><br/>
 <app-fifo *ngIf="pageMethod === 'fifo'" [pageSize]="pageSizeValue" [passNewNumber]="passNewNumber"></app-fifo>
 
 <app-lru *ngIf="pageMethod === 'lru'" [pageSize]="pageSizeValue" [passNewNumber]="passNewNumber"></app-lru>
@@ -19,14 +15,10 @@ Page Size: <select id="pagesizeselect" [(ngModel)]="pageSizeValue">
 <app-lfu *ngIf="pageMethod === 'lfu'" [pageSize]="pageSizeValue" [passNewNumber]="passNewNumber"></app-lfu>
 
 <app-secondchance *ngIf="pageMethod === 'secChance'" [pageSize]="pageSizeValue" [passNewNumber]="passNewNumber"></app-secondchance>
-
-<br>
+<br/>
 Value: <select id="inputvalue" [(ngModel)]="currentNumber">
-  <ng-container *ngFor="let val of inputValues">
-    <option id="{{val}}" >{{val}}</option>
-  </ng-container>
+  <option *ngFor="let val of inputValues" id="{{val}}">{{val}}</option>
 </select>
-
-
-<button id="hitme" (click)="addNewNumber()">Hit me</button>
+<br/><br/>
+<button id="hitme" (click)="addNewNumber()">Zahl einfügen</button>
 
