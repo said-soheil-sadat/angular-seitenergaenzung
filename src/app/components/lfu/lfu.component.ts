@@ -88,7 +88,7 @@ export class LfuComponent implements OnInit, OnChanges, OnDestroy {
 
     this.currentPages[minHits] = {
       page_value: newNumber,
-      page_hits: 0,
+      page_hits: 1,
       page_age: 0,
       bg_color: COLORS.green_code
     };
